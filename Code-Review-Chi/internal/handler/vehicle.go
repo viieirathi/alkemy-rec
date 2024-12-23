@@ -86,13 +86,13 @@ func (h *VehicleDefault) VehicleSearch() http.HandlerFunc {
 		year, err := strconv.Atoi(chi.URLParam(r, "year"))
 
 		if err != nil {
-			response.JSON(w, http.StatusBadRequest, nil)
+			response.JSON(w, http.StatusBadRequest, err)
 			return
 		}
 
 		v, err := h.sv.SearchVehicle(color, year)
 		if err != nil {
-			response.JSON(w, http.StatusNotFound, nil)
+			response.JSON(w, http.StatusNotFound, err)
 			return
 		}
 
