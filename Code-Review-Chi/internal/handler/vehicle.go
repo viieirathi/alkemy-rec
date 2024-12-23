@@ -2,9 +2,12 @@ package handler
 
 import (
 	"app/internal"
+	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/bootcamp-go/web/response"
+	"github.com/go-chi/chi/v5"
 )
 
 // VehicleJSON is a struct that represents a vehicle in JSON format
@@ -73,6 +76,30 @@ func (h *VehicleDefault) GetAll() http.HandlerFunc {
 		response.JSON(w, http.StatusOK, map[string]any{
 			"message": "success",
 			"data":    data,
+		})
+	}
+}
+
+func (h *VehicleDefault) VehicleSearch() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		color := chi.URLParam(r, "color")
+		year, err := strconv.Atoi(chi.URLParam(r, "year"))
+		fmt.Println(color, year)
+		if err != nil {
+			response.JSON(w, http.StatusBadRequest, nil)
+			return
+		}
+
+		v, err := h.sv.SearchVehicle(color, year)
+		if err != nil {
+			response.JSON(w, http.StatusNotFound, nil)
+			return
+		}
+
+		response.JSON(w, http.StatusOK, map[string]any{
+			"message": "sucess",
+			"data":    v,
 		})
 	}
 }

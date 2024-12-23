@@ -18,3 +18,8 @@ func (s *VehicleDefault) FindAll() (v map[int]internal.Vehicle, err error) {
 	v, err = s.rp.FindAll()
 	return
 }
+
+func (s *VehicleDefault) SearchVehicle(color string, year int) (v map[int]internal.Vehicle, err error) {
+	v, err = s.rp.SearchVehicle(color, year)
+	return
+}

@@ -29,3 +29,14 @@ func (r *VehicleMap) FindAll() (v map[int]internal.Vehicle, err error) {
 
 	return
 }
+
+func (r *VehicleMap) SearchVehicle(color string, year int) (v map[int]internal.Vehicle, err error) {
+	v = make(map[int]internal.Vehicle)
+
+	for key, value := range r.db {
+		if value.Color == color && value.FabricationYear == year {
+			v[key] = value
+		}
+	}
+	return
+}
