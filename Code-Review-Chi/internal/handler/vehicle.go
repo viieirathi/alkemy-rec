@@ -2,7 +2,6 @@ package handler
 
 import (
 	"app/internal"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -85,7 +84,7 @@ func (h *VehicleDefault) VehicleSearch() http.HandlerFunc {
 
 		color := chi.URLParam(r, "color")
 		year, err := strconv.Atoi(chi.URLParam(r, "year"))
-		fmt.Println(color, year)
+
 		if err != nil {
 			response.JSON(w, http.StatusBadRequest, nil)
 			return
